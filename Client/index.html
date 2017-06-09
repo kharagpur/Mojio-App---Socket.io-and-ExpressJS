@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Socket.io and Express</title>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Custom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="style.css" />
+	<link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
+
+	<!-- Bootstrap import -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+	<div class='container'>
+		<div class="alert alert-danger" style='display:none;' id="error-alert">
+			<button type="button" class="close" data-dismiss="alert">x</button>
+			<div id='error-message'></div>
+		</div>
+		<div class="alert alert-warning" style='display:none;' id="warning-alert">
+			<button type="button" class="close" data-dismiss="alert">x</button>
+			<div id='warning-message'></div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-8'>
+				<div class='mojio'>
+					<div class='api-Token'>
+						<div class="form-group row">
+							<div class="input-group">
+								<label for="mojioApiToken" class="form-control col-4">Mojio API Token</label>
+								<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='58de16ff-a8c0-4dd6-8689-eea8e7106ee5'>
+							</div>
+						</div>
+						<p class="text-center">
+							<button class="btn btn-primary" id='getUser'>Get User</button>
+							<button class="btn btn-primary" id='getMojios'>Get Mojios</button>
+							<button class="btn btn-primary" id='getVehicles'>Get Vehicles</button>
+							<button class="btn btn-primary" id='clear'>Clear Everything</button>
+						</p>
+					</div>
+					<div id="mojio-User">
+					</div>
+					<div id="mojio-Mojios">
+					</div>
+					<div id="mojio-Vehicles">
+					</div>
+				</div>
+			</div>
+			<div class='col-sm-4'>
+				<div class='chat-area'>
+					<main>
+						<ol id='history'>
+						</ol>
+						<form id='chat'>
+							<div class="col-lg-offset-3 col-lg-6">
+								<div class="input-group">
+									<input id="initials" type="text" class="form-control" placeholder="Int" style="text-transform:uppercase" maxlength="2">
+									<input id="message" type="text" class="form-control" placeholder="Message">
+									<span class="input-group-btn">
+										<button class="btn btn-outline-primary" id='chat-btn'>Send</button>
+									</span>
+								</div>
+							</div>
+						</form>
+					</main>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<!-- Bootstrap import -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+body {
+  background-color: white;
+  color: #303030;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  margin: 20px;
+}*/
+
+main {
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  box-shadow: 3px 3px 12px #c8c8c8;
+  margin: 20px auto;
+  max-width: 550px;
+  padding: 20px;
+}
+
+ol {
+  list-style: none;
+  margin-bottom: 20px;
+  margin-top: 0;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+}
+
+li:nth-child(odd) {
+  background-color: #e3e3e3;
+  border-radius: 6px;
+}
+
+#initials {
+  width: 70px;
+}
+
+#message {
+  width: 200px;
+}
+
+.chat-btn {
+  width: 20px;
+}

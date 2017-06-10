@@ -4,24 +4,21 @@
 	<title>Socket.io and Express</title>
 	<!-- Required meta tags -->
     <meta charset="utf-8">
-
-    <!-- Custom -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="style.css" />
-	<link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
-
-	<!-- Bootstrap import -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 </head>
 <body>
-	<div class='container'>
-		<div class="alert alert-danger" style='display:none;' id="error-alert">
-			<button type="button" class="close" data-dismiss="alert">x</button>
-			<div id='error-message'></div>
+	<div class='container-fluid'>
+		<div class="alert alert-success" style='display:none;' id="success-alert">
+			<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
+			<div id='success-message'></div>
 		</div>
 		<div class="alert alert-warning" style='display:none;' id="warning-alert">
-			<button type="button" class="close" data-dismiss="alert">x</button>
+			<!--<button type="button" class="close" data-dismiss="alert">x</button> -->
 			<div id='warning-message'></div>
+		</div>
+		<div class="alert alert-danger" style='display:none;' id="error-alert">
+			<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
+			<div id='error-message'></div>
 		</div>
 		<div class='row'>
 			<div class='col-sm-8'>
@@ -30,31 +27,33 @@
 						<div class="form-group row">
 							<div class="input-group">
 								<label for="mojioApiToken" class="form-control col-4">Mojio API Token</label>
-								<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='58de16ff-a8c0-4dd6-8689-eea8e7106ee5'>
+								<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='2e5b6fb1-a962-4665-84d0-c691257b6561'>
 							</div>
 						</div>
-						<p class="text-center">
+						<div class="text-center">
 							<button class="btn btn-primary" id='getUser'>Get User</button>
 							<button class="btn btn-primary" id='getMojios'>Get Mojios</button>
 							<button class="btn btn-primary" id='getVehicles'>Get Vehicles</button>
 							<button class="btn btn-primary" id='clear'>Clear Everything</button>
-						</p>
+						</div>
 					</div>
-					<div id="mojio-User">
+					<div class='custom-tables'>
+						<div id="mojio-User">
+						</div>
+						<div id="mojio-Mojios">
+						</div>
+						<div id="mojio-Vehicles">
+						</div>
 					</div>
-					<div id="mojio-Mojios">
-					</div>
-					<div id="mojio-Vehicles">
-					</div>
-				</div>
+				</div> <!-- .mojio -->
 			</div>
 			<div class='col-sm-4'>
 				<div class='chat-area'>
-					<main>
+					<!-- <main> -->
 						<ol id='history'>
 						</ol>
 						<form id='chat'>
-							<div class="col-lg-offset-3 col-lg-6">
+							<!-- <div class="col-lg-offset-3 col-lg-6"> -->
 								<div class="input-group">
 									<input id="initials" type="text" class="form-control" placeholder="Int" style="text-transform:uppercase" maxlength="2">
 									<input id="message" type="text" class="form-control" placeholder="Message">
@@ -62,13 +61,20 @@
 										<button class="btn btn-outline-primary" id='chat-btn'>Send</button>
 									</span>
 								</div>
-							</div>
+							<!-- </div> -->
 						</form>
-					</main>
-				</div>
+					<!-- </main> -->
+				</div> <!-- .chat-area -->
 			</div>
-		</div>
-	</div>
+		</div> <!--.row -->
+	</div> <!-- .container -->
+
+	<!-- IMPORTS - CSS AND JAVASCRIPT -->
+
+    <!-- Custom -->
+	<link rel="stylesheet" href="style.css" />
+	<link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
+	<!-- Dependency -->
 	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="app.js"></script>

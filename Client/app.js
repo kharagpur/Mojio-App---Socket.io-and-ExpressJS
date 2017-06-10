@@ -16,7 +16,7 @@ $(document).ready(function() {
 	});
 
 	socket.on('message', function (data) {
-		$('#history').append(`<li>${data.initial} says: ${data.message}</li>`);
+		$('#history').append(`<li class='history-message'>${data.initial} says: ${data.message}</li>`);
 	});
 
 	// MOJIO JAVASCRIPT
@@ -239,6 +239,18 @@ $(document).ready(function() {
 	});
 
 	// Custom Functions
+	let successAlert = function(header, msg) {
+		$('#success-message').append(`
+			<strong>${header} </strong>
+			${msg}
+		`);
+		$("#success-alert").alert();
+		$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+			$("#success-alert").slideUp(500);
+			$('#success-message').html('');
+		});
+	};
+
 	let warningAlert = function(header, msg) {
 		$('#warning-message').append(`
 			<strong>${header} </strong>

@@ -282,8 +282,8 @@ $(document).ready(function() {
 											<th>Name</th>
 											<th>License Plate</th>
 											<th>VIN</th>
-											<!--<th>Odometer (Meters)</th>-->
-											<th>In Trip?</th>
+											<th>Odometer (Meters)</th>
+											<th>Driving</th>
 											<th>Deleted</th>
 											<th>Update</th>
 										</tr>
@@ -294,29 +294,36 @@ $(document).ready(function() {
 								`
 							);
 						data.Data.forEach(function(vehicle){
+							let id = vehicle.Id;
+							let vehicleName = vehicle.Name;
+							let vehicleLicensePlate = vehicle.LicensePlate;
+							let vehicleVin = vehicle.VIN;
+							let vehicleOdo = vehicle.Odometer.Value;
+							let vehicleIgnitionState = vehicle.IgnitionState.Value === false ? 'Parked' : 'Driving';
+							let vehicleDeleted = vehicle.Deleted === false ? 'No' : 'Yes';
 							$('#vehicleTable > tbody:last-child').append(
 								`
 								<tr>
 									<td class='id' style='display:none;'>
-										<input class="form-control input-sm" type="text" value='${vehicle.Id}'>
+										<input class="form-control input-sm" type="text" value='${id}'>
 									</td>
 									<td class='n'>
-										<input class="form-control input-sm" type="text" value='${vehicle.Name}'>
+										<input class="form-control input-sm" type="text" value='${vehicleName}'>
 									</td>
 									<td class='lc'>
-										<input class="form-control input-sm" type="text" value='${vehicle.LicensePlate}'>
+										<input class="form-control input-sm" type="text" value='${vehicleLicensePlate}'>
 									</td>
 									<td class='vin'>
-										<input class="form-control input-sm" type="text" value='${vehicle.VIN}'>
+										<input class="form-control input-sm" type="text" value='${vehicleVin}'>
 									</td>
-									<!--<td class='Odometer'>
-										<input class="form-control input-sm" type="text" value='${vehicle.Odometer.Value}'>
-									</td>-->
+									<td class='Odometer'>
+										<input class="form-control input-sm" type="text" value='${vehicleOdo}'>
+									</td>
 									<td class='ign'>
-										<input class="form-control input-sm" type="text" value='${vehicle.IgnitionState.Value}' disabled>
+										<input class="form-control input-sm" type="text" value='${vehicleIgnitionState}' disabled>
 									</td>
 									<td class='d'>
-										<input class="form-control input-sm" type="text" value='${vehicle.Deleted}' disabled>
+										<input class="form-control input-sm" type="text" value='${vehicleDeleted}' disabled>
 									</td>
 									<td><button class='btn btn-secondary update-vehicle'>Update</button></td>
 								</tr>

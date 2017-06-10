@@ -26,7 +26,9 @@ $(document).ready(function() {
 		if (apiToken){
 			$.ajax({
 				url:'https://api.moj.io/v2/me',
+
 				headers:{
+					'Accept' : 'application/json',
 					'Authorization': `Bearer ${apiToken}`,
 					'Content-Type': 'application/json'
 				},
@@ -60,7 +62,7 @@ $(document).ready(function() {
 										<input class="form-control input-sm" type="text" value='${data.LastName}'>
 									</td>
 									<td class='em'>
-										<input class="form-control input-sm" type="text" value='${data.Emails[0].Address}'>
+										<input class="form-control input-sm" type="text" value='${data.Emails[0].Address}' disabled>
 									</td>
 									<td><button class='btn btn-secondary update-user'>Update</button></td>
 								</tr>
@@ -86,30 +88,55 @@ $(document).ready(function() {
 		let id = $(this).closest("tr")
 			.find('.id')
 			.find('input')
-			.val();;
-		alert(id);
+			.val();
 		let userName = $(this).closest("tr")
 			.find('.un')
 			.find('input')
-			.val();;
-		alert(userName);
+			.val();
 		let firstName = $(this).closest("tr")
 			.find('.fn')
 			.find('input')
 			.val();
-		alert(firstName);
 		let lastName = $(this).closest("tr")
 			.find('.ln')
 			.find('input')
 			.val();
-		alert(lastName);
 		let email = $(this).closest("tr")
 			.find('.em')
 			.find('input')
 			.val();
-		alert(email);
-
 		// Ajax call to save the entity
+		var apiToken = $('#apiToken').val();
+		if (apiToken){
+			$.ajax({
+				url:`https://api.moj.io/v2/users/${id}`,
+				headers:{
+					'Authorization': `Bearer ${apiToken}`,
+					'Content-Type': 'application/json'
+				},
+				method:'PUT',
+				data:`
+				{
+					UserName: '${userName}',
+					FirstName: '${firstName}',
+					LastName: '${lastName}'
+				}
+				`,
+				success: function(data){
+					successAlert('Success', 'User\'s been updated!');
+
+				},
+				error: function(xhr, text, err){
+					console.log(xhr.responseJSON.Message);
+					console.log(xhr.status);
+					console.log(xhr.statusCode);
+					errorAlert('Error', 'Updating user failed');
+				}
+			});
+		}
+		else{
+			warningAlert('Darn!', 'I need an API token to begin with');
+		}
 	});
 
 	$('#getMojios').on('click', function(){

@@ -39,19 +39,29 @@ $(document).ready(function() {
 							</thead>
 							<tbody>
 								<tr>
+									<th style='display:none;'>Id</th>
+									<th>User Name</th>
 									<th>First Name</th>
 									<th>Last Name</th>
-									<th>User Name</th>
-									<th>Jurisdiction</th>
-									<th>DefaultLanguage</th>
+									<th>Email</th>
 									<th>Update User</th>
 								</tr>
 								<tr>
-									<td class='fn'>${data.FirstName}</td>
-									<td class='ln'>${data.LastName}</td>
-									<td class='un'>${data.UserName}</td>
-									<td class='jr'>${data.Jurisdiction}</td>
-									<td class='dl'>${data.DefaultLanguage}</td>
+									<td class='id' style='display:none;'>
+										<input class="form-control input-sm" type="text" value='${data.Id}'>
+									</td>
+									<td class='un'>
+										<input class="form-control input-sm" type="text" value='${data.UserName}'>
+									</td>
+									<td class='fn'>
+										<input class="form-control input-sm" type="text" value='${data.FirstName}'>
+									</td>
+									<td class='ln'>
+										<input class="form-control input-sm" type="text" value='${data.LastName}'>
+									</td>
+									<td class='em'>
+										<input class="form-control input-sm" type="text" value='${data.Emails[0].Address}'>
+									</td>
 									<td><button class='btn btn-secondary update-user'>Update</button></td>
 								</tr>
 							</tbody>
@@ -73,14 +83,32 @@ $(document).ready(function() {
 	});
 
 	$('body').on('click', 'button.update-user', function(){
+		let id = $(this).closest("tr")
+			.find('.id')
+			.find('input')
+			.val();;
+		alert(id);
+		let userName = $(this).closest("tr")
+			.find('.un')
+			.find('input')
+			.val();;
+		alert(userName);
 		let firstName = $(this).closest("tr")
-			.find(".fn")
-			.text();
+			.find('.fn')
+			.find('input')
+			.val();
 		alert(firstName);
 		let lastName = $(this).closest("tr")
-			.find(".ln")
-			.text();
+			.find('.ln')
+			.find('input')
+			.val();
 		alert(lastName);
+		let email = $(this).closest("tr")
+			.find('.em')
+			.find('input')
+			.val();
+		alert(email);
+
 		// Ajax call to save the entity
 	});
 

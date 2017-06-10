@@ -213,28 +213,52 @@ $(document).ready(function() {
 			.find(".id")
 			.find('input')
 			.val();
-		alert(id);
 		let imei = $(this).closest("tr")
 			.find(".imei")
 			.find('input')
 			.val();
-		alert(imei);
 		let n = $(this).closest("tr")
 			.find(".n")
 			.find('input')
 			.val();
-		alert(n);
 		let lct = $(this).closest("tr")
 			.find(".lct")
 			.find('input')
 			.val();
-		alert(lct);
 		let vid = $(this).closest("tr")
 			.find(".vid")
 			.find('input')
 			.val();
-		alert(vid);
 		// Ajax call to save the entity
+		var apiToken = $('#apiToken').val();
+		if (apiToken){
+			$.ajax({
+				url:`https://api.moj.io/v2/mojios/${id}`,
+				headers:{
+					'Authorization': `Bearer ${apiToken}`,
+					'Content-Type': 'application/json'
+				},
+				method:'PUT',
+				data:`
+				{
+					Name: '${n}'
+				}
+				`,
+				success: function(data){
+					successAlert('Success', 'Mojio has been updated!');
+
+				},
+				error: function(xhr, text, err){
+					console.log(xhr.responseJSON.Message);
+					console.log(xhr.status);
+					console.log(xhr.statusCode);
+					errorAlert('Error', 'Updating user failed');
+				}
+			});
+		}
+		else{
+			warningAlert('Darn!', 'I need an API token to begin with');
+		}
 	});
 
 	$('#getVehicles').on('click', function(){

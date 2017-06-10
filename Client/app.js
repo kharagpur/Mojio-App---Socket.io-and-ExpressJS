@@ -36,8 +36,6 @@ $(document).ready(function() {
 						`
 						<table class='table table-striped table-hover table-responsive' id='userTable' style="width:100%">
 							<thead class="thead-default">
-							</thead>
-							<tbody>
 								<tr>
 									<th style='display:none;'>Id</th>
 									<th>User Name</th>
@@ -46,6 +44,8 @@ $(document).ready(function() {
 									<th>Email</th>
 									<th>Update User</th>
 								</tr>
+							</thead>
+							<tbody>
 								<tr>
 									<td class='id' style='display:none;'>
 										<input class="form-control input-sm" type="text" value='${data.Id}'>
@@ -127,19 +127,17 @@ $(document).ready(function() {
 						$('#mojio-Mojios').append(
 								`
 								<table class='table table-striped table-hover table-responsive' id='mojioTable' style="width:100%">
-									<tbody>
+									<thead class="thead-default">
 										<tr>
-											<th>Created On</th>
-											<th>Deleted</th>
+											<th style='display:none;'>ID</th>
 											<th>IMEI</th>
-											<th>ID</th>
-											<th>LastContactTime</th>
-											<th>LastModified</th>
 											<th>Name</th>
-											<th>OwnerId</th>
-											<th>Vehicle Id</th>
-											<th>Update Mojoi</th>
+											<th>LastContactTime</th>
+											<th style='display:none;'>Vehicle Id</th>
+											<th>Update Mojio</th>
 										</tr>
+									</thead>
+									<tbody>
 									</tbody>
 								</table>
 								`
@@ -148,15 +146,21 @@ $(document).ready(function() {
 							$('#mojioTable > tbody:last-child').append(
 								`
 								<tr>
-									<td class='co'>${mojio.CreatedOn}</td>
-									<td class='d'>${mojio.Deleted}</td>
-									<td class='imei'>${mojio.IMEI}</td>
-									<td class='id'>${mojio.Id}</td>
-									<td class='lct'>${mojio.LastContactTime}</td>
-									<td class='lm'>${mojio.LastModified}</td>
-									<td class='n'>${mojio.Name}</td>
-									<td class='oid'>${mojio.OwnerId}</td>
-									<td class='vid'>${mojio.VehicleId}</td>
+									<td class='id' style='display:none;'>
+										<input class="form-control input-sm" type="text" value='${mojio.Id}'>
+									</td>
+									<td class='imei'>
+										<input class="form-control input-sm" type="text" value='${mojio.IMEI}' disabled>
+									</td>
+									<td class='n'>
+										<input class="form-control input-sm" type="text" value='${mojio.Name}'>
+									</td>
+									<td class='lct'>
+										<input class="form-control input-sm" type="text" value='${mojio.LastContactTime}' disabled>
+									</td>
+									<td class='vid' style='display:none;'>
+										<input class="form-control input-sm" type="text" value='${mojio.VehicleId}'>
+									</td>
 									<td><button class='btn btn-secondary update-mojio'>Update</button></td>
 								</tr>
 								`
@@ -178,14 +182,31 @@ $(document).ready(function() {
 	});
 
 	$('body').on('click', 'button.update-mojio', function(){
-		let createdOn = $(this).closest("tr")
-			.find(".co")
-			.text();
-		alert(createdOn);
-		let name = $(this).closest("tr")
+		let id = $(this).closest("tr")
+			.find(".id")
+			.find('input')
+			.val();
+		alert(id);
+		let imei = $(this).closest("tr")
+			.find(".imei")
+			.find('input')
+			.val();
+		alert(imei);
+		let n = $(this).closest("tr")
 			.find(".n")
-			.text();
-		alert(name);
+			.find('input')
+			.val();
+		alert(n);
+		let lct = $(this).closest("tr")
+			.find(".lct")
+			.find('input')
+			.val();
+		alert(lct);
+		let vid = $(this).closest("tr")
+			.find(".vid")
+			.find('input')
+			.val();
+		alert(vid);
 		// Ajax call to save the entity
 	});
 
@@ -204,16 +225,19 @@ $(document).ready(function() {
 						$('#mojio-Vehicles').append(
 								`
 								<table class='table table-striped table-hover table-responsive' id='vehicleTable' style="width:100%">
-									<tbody>
+									<thead class="thead-default">
 										<tr>
-											<th>ID</th>
-											<th>Deleted</th>
-											<th>DetectedVIN</th>
-											<th>In Trip?</th>
-											<th>Owner ID</th>
+											<th style='display:none;'>ID</th>
+											<th>Name</th>
+											<th>License Plate</th>
 											<th>VIN</th>
+											<!--<th>Odometer (Meters)</th>-->
+											<th>In Trip?</th>
+											<th>Deleted</th>
 											<th>Update Vehicle</th>
 										</tr>
+									</thead>
+									<tbody>
 									</tbody>
 								</table>
 								`
@@ -222,12 +246,27 @@ $(document).ready(function() {
 							$('#vehicleTable > tbody:last-child').append(
 								`
 								<tr>
-									<td class='id'>${vehicle.Id}</td>
-									<td class='d'>${vehicle.Deleted}</td>
-									<td class='dv'>${vehicle.DetectedVIN}</td>
-									<td class='ign'>${vehicle.IgnitionState.Value}</td>
-									<td class='oid'>${vehicle.OwnerId}</td>
-									<td class='vid'>${vehicle.VIN}</td>
+									<td class='id' style='display:none;'>
+										<input class="form-control input-sm" type="text" value='${vehicle.Id}'>
+									</td>
+									<td class='n'>
+										<input class="form-control input-sm" type="text" value='${vehicle.Name}'>
+									</td>
+									<td class='lc'>
+										<input class="form-control input-sm" type="text" value='${vehicle.LicensePlate}'>
+									</td>
+									<td class='vin'>
+										<input class="form-control input-sm" type="text" value='${vehicle.VIN}'>
+									</td>
+									<!--<td class='Odometer'>
+										<input class="form-control input-sm" type="text" value='${vehicle.Odometer.Value}'>
+									</td>-->
+									<td class='ign'>
+										<input class="form-control input-sm" type="text" value='${vehicle.IgnitionState.Value}' disabled>
+									</td>
+									<td class='d'>
+										<input class="form-control input-sm" type="text" value='${vehicle.Deleted}' disabled>
+									</td>
 									<td><button class='btn btn-secondary update-vehicle'>Update</button></td>
 								</tr>
 								`
@@ -249,14 +288,41 @@ $(document).ready(function() {
 	});
 
 	$('body').on('click', 'button.update-vehicle', function(){
-		let detectedVin = $(this).closest("tr")
-			.find(".dv")
-			.text();
-		alert(detectedVin);
-		let deleted = $(this).closest("tr")
+		let id = $(this).closest("tr")
+			.find(".id")
+			.find('input')
+			.val();
+		alert(id);
+		let n = $(this).closest("tr")
+			.find(".n")
+			.find('input')
+			.val();
+		alert(n);
+		let lc = $(this).closest("tr")
+			.find(".lc")
+			.find('input')
+			.val();
+		alert(lc);
+		let vin = $(this).closest("tr")
+			.find(".vin")
+			.find('input')
+			.val();
+		alert(vin);
+		let odo = $(this).closest("tr")
+			.find(".odo")
+			.find('input')
+			.val();
+		alert(odo);
+		let ign = $(this).closest("tr")
 			.find(".ign")
-			.text();
-		alert(deleted);
+			.find('input')
+			.val();
+		alert(ign);
+		let del = $(this).closest("tr")
+			.find(".d")
+			.find('input')
+			.val();
+		alert(del);
 		// Ajax call to save the entity
 	});
 
@@ -302,7 +368,4 @@ $(document).ready(function() {
 			$('#error-message').html('');
 		});
 	};
-
-
-	
 });

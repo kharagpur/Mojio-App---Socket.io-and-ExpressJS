@@ -5,29 +5,34 @@
 	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Custom -->
+	<link rel="stylesheet" href="style.css" />
+	<link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
 </head>
 <body>
-	<div class='container-fluid'>
-		<div class="alert alert-success" style='display:none;' id="success-alert">
-			<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
-			<div id='success-message'></div>
-		</div>
-		<div class="alert alert-warning" style='display:none;' id="warning-alert">
-			<!--<button type="button" class="close" data-dismiss="alert">x</button> -->
-			<div id='warning-message'></div>
-		</div>
-		<div class="alert alert-danger" style='display:none;' id="error-alert">
-			<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
-			<div id='error-message'></div>
+	<div class='container'>
+		<div id='alerts'>
+			<div class="alert alert-success" style='display:none;' id="success-alert">
+				<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
+				<div id='success-message'></div>
+			</div>
+			<div class="alert alert-warning" style='display:none;' id="warning-alert">
+				<!--<button type="button" class="close" data-dismiss="alert">x</button> -->
+				<div id='warning-message'></div>
+			</div>
+			<div class="alert alert-danger" style='display:none;' id="error-alert">
+				<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
+				<div id='error-message'></div>
+			</div>
 		</div>
 		<div class='row'>
-			<div class='col-sm-8'>
+			<div class='col-sm-9'>
 				<div class='mojio'>
-					<div class='api-Token'>
-						<div class="form-group row">
+					<div>
+						<div class="form-group">
 							<div class="input-group">
 								<label for="mojioApiToken" class="form-control col-4">Mojio API Token</label>
-								<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='2e5b6fb1-a962-4665-84d0-c691257b6561'>
+								<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='1a74c9f0-e874-4be9-8d8d-5c4efeabf671'>
 							</div>
 						</div>
 						<div class="text-center">
@@ -45,15 +50,13 @@
 						<div id="mojio-Vehicles">
 						</div>
 					</div>
-				</div> <!-- .mojio -->
+				</div>
 			</div>
-			<div class='col-sm-4'>
+			<div class='col-sm-3'>
 				<div class='chat-area'>
-					<!-- <main> -->
 						<ol id='history'>
 						</ol>
 						<form id='chat'>
-							<!-- <div class="col-lg-offset-3 col-lg-6"> -->
 								<div class="input-group">
 									<input id="initials" type="text" class="form-control" placeholder="Int" style="text-transform:uppercase" maxlength="2">
 									<input id="message" type="text" class="form-control" placeholder="Message">
@@ -61,19 +64,13 @@
 										<button class="btn btn-outline-primary" id='chat-btn'>Send</button>
 									</span>
 								</div>
-							<!-- </div> -->
 						</form>
-					<!-- </main> -->
 				</div> <!-- .chat-area -->
 			</div>
 		</div> <!--.row -->
 	</div> <!-- .container -->
 
-	<!-- IMPORTS - CSS AND JAVASCRIPT -->
-
-    <!-- Custom -->
-	<link rel="stylesheet" href="style.css" />
-	<link rel="shortcut icon" type="image/png" href="http://eg.com/favicon.png"/>
+	<!-- IMPORTS - JAVASCRIPT -->
 	<!-- Dependency -->
 	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 	<script src="/socket.io/socket.io.js"></script>

@@ -42,7 +42,7 @@ $(document).ready(function() {
 									<th>First Name</th>
 									<th>Last Name</th>
 									<th>Email</th>
-									<th>Update User</th>
+									<th>Update</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -134,7 +134,7 @@ $(document).ready(function() {
 											<th>Name</th>
 											<th>LastContactTime</th>
 											<th style='display:none;'>Vehicle Id</th>
-											<th>Update Mojio</th>
+											<th>Update</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -234,7 +234,7 @@ $(document).ready(function() {
 											<!--<th>Odometer (Meters)</th>-->
 											<th>In Trip?</th>
 											<th>Deleted</th>
-											<th>Update Vehicle</th>
+											<th>Update</th>
 										</tr>
 									</thead>
 									<tbody>

@@ -282,7 +282,7 @@ $(document).ready(function() {
 											<th>Name</th>
 											<th>License Plate</th>
 											<th>VIN</th>
-											<th>Odometer (Meters)</th>
+											<th>Odometer (KM)</th>
 											<th>Driving</th>
 											<th>Deleted</th>
 											<th>Update</th>
@@ -298,7 +298,12 @@ $(document).ready(function() {
 							let vehicleName = vehicle.Name;
 							let vehicleLicensePlate = vehicle.LicensePlate;
 							let vehicleVin = vehicle.VIN;
-							let vehicleOdo = vehicle.Odometer.Value;
+							let vehicleOdoObj = vehicle.Odometer;
+							let vehicleOdo = 'N/A'
+							if (typeof vehicleOdoObj != 'undefined'){
+								vehicleOdo = vehicle.Odometer.Value / 1000; // Convert to KM
+							}
+							
 							let vehicleIgnitionState = vehicle.IgnitionState.Value === false ? 'Parked' : 'Driving';
 							let vehicleDeleted = vehicle.Deleted === false ? 'No' : 'Yes';
 							$('#vehicleTable > tbody:last-child').append(
@@ -314,9 +319,9 @@ $(document).ready(function() {
 										<input class="form-control input-sm" type="text" value='${vehicleLicensePlate}'>
 									</td>
 									<td class='vin'>
-										<input class="form-control input-sm" type="text" value='${vehicleVin}'>
+										<input class="form-control input-sm" type="text" value='${vehicleVin}' disabled>
 									</td>
-									<td class='Odometer'>
+									<td class='odo'>
 										<input class="form-control input-sm" type="text" value='${vehicleOdo}'>
 									</td>
 									<td class='ign'>
@@ -350,38 +355,62 @@ $(document).ready(function() {
 			.find(".id")
 			.find('input')
 			.val();
-		alert(id);
 		let n = $(this).closest("tr")
 			.find(".n")
 			.find('input')
 			.val();
-		alert(n);
 		let lc = $(this).closest("tr")
 			.find(".lc")
 			.find('input')
 			.val();
-		alert(lc);
 		let vin = $(this).closest("tr")
 			.find(".vin")
 			.find('input')
 			.val();
-		alert(vin);
 		let odo = $(this).closest("tr")
 			.find(".odo")
 			.find('input')
 			.val();
-		alert(odo);
+		odo *= 1000; // Convert to meters
 		let ign = $(this).closest("tr")
 			.find(".ign")
 			.find('input')
 			.val();
-		alert(ign);
 		let del = $(this).closest("tr")
 			.find(".d")
 			.find('input')
 			.val();
-		alert(del);
 		// Ajax call to save the entity
+		var apiToken = $('#apiToken').val();
+		if (apiToken){
+			$.ajax({
+				url:`https://api.moj.io/v2/vehicles/${id}`,
+				headers:{
+					'Authorization': `Bearer ${apiToken}`,
+					'Content-Type': 'application/json'
+				},
+				method:'PUT',
+				data:`
+				{
+					Name: '${n}',
+					LicensePlate: '${lc}',
+					Odometer: {Value: '${odo}'}
+				}
+				`,
+				success: function(data){
+					successAlert('Success', 'Vehicles has been updated!');
+				},
+				error: function(xhr, text, err){
+					console.log(xhr.responseJSON.Message);
+					console.log(xhr.status);
+					console.log(xhr.statusCode);
+					errorAlert('Error', 'Updating user failed');
+				}
+			});
+		}
+		else{
+			warningAlert('Darn!', 'I need an API token to begin with');
+		}
 	});
 
 	$('#clear').on('click', function(){

@@ -505,3 +505,9 @@ $(document).ready(function() {
 		});
 	};
 });
+
+$( document ).ajaxError(function( event, request, settings ) {
+  console.log("Triggered ajaxError handler." );
+  console.log("Error requesting page " + settings.url);
+  console.log("Request: " + request.responseJSON.Message);
+});

@@ -479,7 +479,7 @@ $(document).ready(function() {
 		}
 	});
 
-	let selectedVehicles2Merge = [];
+	let mergeCandidates = [];
 	$('body').on('change', '#mergeCheckBox', function(){
 	    if(this.checked) {
 	        // Push to array
@@ -487,27 +487,26 @@ $(document).ready(function() {
 			.find(".id")
 			.find('input')
 			.val();
-			selectedVehicles2Merge.push(id);
-
+			mergeCandidates.push(id);
 			
-			if(selectedVehicles2Merge.length == 2){
+			if(mergeCandidates.length == 2){
 				// Disable other check box.
 				$('#vehicleTable').find('.merge').find('#mergeCheckBox:checkbox:not(:checked)').attr("disabled", "disabled");
 			}
 	    }
 	    if(!this.checked){
 	    	// enable everyone except for already checked
+
+	    	// Enable all the check boxes
 	    	$('#vehicleTable').find('.merge').find('#mergeCheckBox:checkbox:disabled').attr("disabled", false);
-	    	// for(let i = 0; i < selectedVehicles2Merge.length; i++){
-	    	// 	console.log(selectedVehicles2Merge[i]);
-	    	// }
-	    	let mojioId = $(this).closest("tr")
+	    	let vehicleId = $(this).closest("tr")
 							.find(".id")
 							.find('input')
 							.val();
-	    	let indexToRemove = selectedVehicles2Merge.indexOf(mojioId);
+			// remove vehicle id from the collection
+	    	let indexToRemove = mergeCandidates.indexOf(vehicleId);
 	    	if (indexToRemove > -1) {
-	    		selectedVehicles2Merge.splice(indexToRemove, 1);
+	    		mergeCandidates.splice(indexToRemove, 1);
 	    	}
 	    }
 	});

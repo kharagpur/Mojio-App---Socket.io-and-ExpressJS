@@ -280,6 +280,7 @@ $(document).ready(function() {
 								<table class='table table-striped table-hover table-responsive' id='vehicleTable' style="width:100%">
 									<thead class="thead-default">
 										<tr>
+											<th>Merge</th>
 											<th style='display:none;'>ID</th>
 											<th style='display:none;'>MojioID</th>
 											<th>Name</th>
@@ -314,6 +315,13 @@ $(document).ready(function() {
 							$('#vehicleTable > tbody:last-child').append(
 								`
 								<tr>
+									<td class='merge'>
+										<div class="input-group">
+											<span class="input-group-addon">
+												<input id='mergeCheckBox' type="checkbox" aria-label="Checkbox for following text input">
+											</span>
+										</div>
+									</td>
 									<td class='id' style='display:none;'>
 										<input class="form-control input-sm" type="text" value='${id}'>
 									</td>
@@ -343,12 +351,21 @@ $(document).ready(function() {
 								</tr>
 								`
 							);
-
 							if (mojid){
 								$('.delete-vehicle').attr('disabled', 'disabled');
 								$('.delete-vehicle').attr('title', 'This vehicle is connected to a Mojio');
 							}
 						});
+						// $('#mojio-Vehicles').append(
+						// 		`<button type="button" class="btn btn-outline-danger">Merge</button>`
+						// );
+						$('#vehicleTable > tbody:last-child').append(
+							`
+							<tr>
+								<td class='merge-button'><button type="button" class="btn btn-outline-danger">Merge</button></td>
+							</tr>
+							`
+						)
 					}
 				},
 				error: function(xhr, text, err){
@@ -460,6 +477,39 @@ $(document).ready(function() {
 		else{
 			warningAlert('Darn!', 'I need an API token to begin with');
 		}
+	});
+
+	let selectedVehicles2Merge = [];
+	$('body').on('change', '#mergeCheckBox', function(){
+	    if(this.checked) {
+	        // Push to array
+	        let id = $(this).closest("tr")
+			.find(".id")
+			.find('input')
+			.val();
+			selectedVehicles2Merge.push(id);
+
+			
+			if(selectedVehicles2Merge.length == 2){
+				// Disable other check box.
+				$('#vehicleTable').find('.merge').find('#mergeCheckBox:checkbox:not(:checked)').attr("disabled", "disabled");
+			}
+	    }
+	    if(!this.checked){
+	    	// enable everyone except for already checked
+	    	$('#vehicleTable').find('.merge').find('#mergeCheckBox:checkbox:disabled').attr("disabled", false);
+	    	// for(let i = 0; i < selectedVehicles2Merge.length; i++){
+	    	// 	console.log(selectedVehicles2Merge[i]);
+	    	// }
+	    	let mojioId = $(this).closest("tr")
+							.find(".id")
+							.find('input')
+							.val();
+	    	let indexToRemove = selectedVehicles2Merge.indexOf(mojioId);
+	    	if (indexToRemove > -1) {
+	    		selectedVehicles2Merge.splice(indexToRemove, 1);
+	    	}
+	    }
 	});
 
 	$('#clear').on('click', function(){

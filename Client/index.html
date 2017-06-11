@@ -20,6 +20,7 @@
 			</div>
 			<div class="alert alert-warning" style='display:none;' id="warning-alert">
 				<!--<button type="button" class="close" data-dismiss="alert">x</button> -->
+				  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 				<div id='warning-message'></div>
 			</div>
 			<div class="alert alert-danger" style='display:none;' id="error-alert">
@@ -33,9 +34,9 @@
 					<div class='row justify-content-center'>
 						<div class="col-md-9 form-group input-group">
 							<label for="mojioApiToken" class="form-control col-4">Mojio API Token</label>
-							<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='8b786949-8f8a-43ea-a4ca-cab69d31bcf8'>
-							<!-- 75336670-c2c1-46a4-ae25-c9c0edad91b2 Hoover-->
-							<!-- 8b786949-8f8a-43ea-a4ca-cab69d31bcf8 Eggy -->
+							<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='e7948b83-a2cd-466e-92ee-3b4af45690ad'>
+							<!-- 450c8f22-9a58-45da-8aee-80c5cd8b9bf8 Hoover-->
+							<!-- e7948b83-a2cd-466e-92ee-3b4af45690ad Eggy -->
 						</div>
 						<div class="col-md-9 text-center">
 							<button class="btn btn-primary" id='getUser'>Get User</button>
@@ -62,7 +63,7 @@
 						</ol>
 						<form id='chat'>
 								<div class="input-group">
-									<input id="initials" type="text" class="form-control" placeholder="Int" style="text-transform:uppercase" maxlength="2">
+									<input id="initials" type="text" class="form-control text-uppercase" placeholder="Int" maxlength="2">
 									<input id="message" type="text" class="form-control" placeholder="Message">
 									<span class="input-group-btn">
 										<button class="btn btn-outline-primary" id='chat-btn'>Send</button>

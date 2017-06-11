@@ -20,7 +20,7 @@ $(document).ready(function() {
 	});
 
 	// MOJIO JAVASCRIPT
-	// Get Mojio user information
+	// USER OPERATION
 	$('#getUser').on('click', function(){
 		var apiToken = $('#apiToken').val();
 		if (apiToken){
@@ -139,6 +139,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// MOJIO OPERATION
 	$('#getMojios').on('click', function(){
 		var apiToken = $('#apiToken').val();
 		if (apiToken){
@@ -261,6 +262,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// VEHICLE OPERATION
 	$('#getVehicles').on('click', function(){
 		var apiToken = $('#apiToken').val();
 		if (apiToken){
@@ -279,6 +281,7 @@ $(document).ready(function() {
 									<thead class="thead-default">
 										<tr>
 											<th style='display:none;'>ID</th>
+											<th style='display:none;'>MojioID</th>
 											<th>Name</th>
 											<th>License Plate</th>
 											<th>VIN</th>
@@ -286,6 +289,7 @@ $(document).ready(function() {
 											<th>Driving</th>
 											<th>Deleted</th>
 											<th>Update</th>
+											<th>Delete</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -295,6 +299,7 @@ $(document).ready(function() {
 							);
 						data.Data.forEach(function(vehicle){
 							let id = vehicle.Id;
+							let mojid = vehicle.MojioId;
 							let vehicleName = vehicle.Name;
 							let vehicleLicensePlate = vehicle.LicensePlate;
 							let vehicleVin = vehicle.VIN;
@@ -311,6 +316,9 @@ $(document).ready(function() {
 								<tr>
 									<td class='id' style='display:none;'>
 										<input class="form-control input-sm" type="text" value='${id}'>
+									</td>
+									<td class='mojid' style='display:none;'>
+										<input class="form-control input-sm" type="text" value='${mojid}'>
 									</td>
 									<td class='n'>
 										<input class="form-control input-sm" type="text" value='${vehicleName}'>
@@ -331,9 +339,15 @@ $(document).ready(function() {
 										<input class="form-control input-sm" type="text" value='${vehicleDeleted}' disabled>
 									</td>
 									<td><button class='btn btn-secondary update-vehicle'>Update</button></td>
+									<td><button class='btn btn-secondary delete-vehicle'>Delete</button></td>
 								</tr>
 								`
 							);
+
+							if (mojid){
+								$('.delete-vehicle').attr('disabled', 'disabled');
+								$('.delete-vehicle').attr('title', 'This vehicle is connected to a Mojio');
+							}
 						});
 					}
 				},
@@ -353,6 +367,10 @@ $(document).ready(function() {
 	$('body').on('click', 'button.update-vehicle', function(){
 		let id = $(this).closest("tr")
 			.find(".id")
+			.find('input')
+			.val();
+		let mojid = $(this).closest("tr")
+			.find(".mojid")
 			.find('input')
 			.val();
 		let n = $(this).closest("tr")
@@ -404,7 +422,38 @@ $(document).ready(function() {
 					console.log(xhr.responseJSON.Message);
 					console.log(xhr.status);
 					console.log(xhr.statusCode);
-					errorAlert('Error', 'Updating user failed');
+					errorAlert('Error', 'Updating vehicle failed');
+				}
+			});
+		}
+		else{
+			warningAlert('Darn!', 'I need an API token to begin with');
+		}
+	});
+
+	$('body').on('click', 'button.delete-vehicle', function(){
+		let id = $(this).closest("tr")
+			.find(".id")
+			.find('input')
+			.val();
+		// Ajax call to save the entity
+		var apiToken = $('#apiToken').val();
+		if (apiToken){
+			$.ajax({
+				url:`https://api.moj.io/v2/vehicles/${id}`,
+				headers:{
+					'Authorization': `Bearer ${apiToken}`,
+					'Content-Type': 'application/json'
+				},
+				method:'DELETE',
+				success: function(data){
+					successAlert('Success', 'Vehicles has been deleted!');
+				},
+				error: function(xhr, text, err){
+					console.log(xhr.responseJSON.Message);
+					console.log(xhr.status);
+					console.log(xhr.statusCode);
+					errorAlert('Error', 'Deleting vehicle failed');
 				}
 			});
 		}

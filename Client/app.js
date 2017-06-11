@@ -64,7 +64,7 @@ $(document).ready(function() {
 									<td class='em'>
 										<input class="form-control input-sm" type="text" value='${data.Emails[0].Address}' disabled>
 									</td>
-									<td><button class='btn btn-secondary update-user'>Update</button></td>
+									<td><button class='btn btn-success update-user'>Update</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -189,7 +189,7 @@ $(document).ready(function() {
 									<td class='vid' style='display:none;'>
 										<input class="form-control input-sm" type="text" value='${mojio.VehicleId}'>
 									</td>
-									<td><button class='btn btn-secondary update-mojio'>Update</button></td>
+									<td><button class='btn btn-success update-mojio'>Update</button></td>
 								</tr>
 								`
 							);
@@ -346,8 +346,8 @@ $(document).ready(function() {
 									<td class='d'>
 										<input class="form-control input-sm" type="text" value='${vehicleDeleted}' disabled>
 									</td>
-									<td><button class='btn btn-secondary update-vehicle'>Update</button></td>
-									<td><button class='btn btn-secondary delete-vehicle'>Delete</button></td>
+									<td><button class='btn btn-success update-vehicle'>Update</button></td>
+									<td><button class='btn btn-outline-danger delete-vehicle'>Delete</button></td>
 								</tr>
 								`
 							);
@@ -362,7 +362,7 @@ $(document).ready(function() {
 						$('#vehicleTable > tbody:last-child').append(
 							`
 							<tr>
-								<td class='merge-button'><button type="button" class="btn btn-outline-danger">Merge</button></td>
+								<td class='merge-button'><button type="button" class="btn btn-outline-danger merge-vehicle" id="mergeButton" disabled>Merge</button></td>
 							</tr>
 							`
 						)
@@ -479,6 +479,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// Handler for disabling checkboxes if more than 2 vehicle is selected
 	let mergeCandidates = [];
 	$('body').on('change', '#mergeCheckBox', function(){
 	    if(this.checked) {
@@ -492,6 +493,7 @@ $(document).ready(function() {
 			if(mergeCandidates.length == 2){
 				// Disable other check box.
 				$('#vehicleTable').find('.merge').find('#mergeCheckBox:checkbox:not(:checked)').attr("disabled", "disabled");
+				$('#mergeButton').attr('disabled', false);
 			}
 	    }
 	    if(!this.checked){
@@ -508,7 +510,12 @@ $(document).ready(function() {
 	    	if (indexToRemove > -1) {
 	    		mergeCandidates.splice(indexToRemove, 1);
 	    	}
+	    	$('#mergeButton').attr('disabled', 'disabled');
 	    }
+	});
+
+	$('body').on('click', 'button.merge-vehicle', function(){
+		console.log(mergeCandidates);
 	});
 
 	$('#clear').on('click', function(){

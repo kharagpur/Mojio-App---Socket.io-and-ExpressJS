@@ -29,14 +29,15 @@
 			</div>
 		</div>
 		<div class='row justify-content-center'>
-			<div class='col-md-9'>
+			<!-- MOJIO CONTAINER -->
+			<div class='col-md-8'>
 				<div class='mojio'>
 					<div class='row justify-content-center'>
 						<div class="col-md-9 form-group input-group">
 							<label for="mojioApiToken" class="form-control col-4">Mojio API Token</label>
-							<input id="apiToken" type="text" class="form-control col-8" placeholder="58de16ff-a8c0-4dd6-8689-eea8e7106ee5" value='e7948b83-a2cd-466e-92ee-3b4af45690ad'>
+							<input id="apiToken" type="text" class="form-control col-8" placeholder="035bec70-883f-47a2-b333-b30070533e30" value='035bec70-883f-47a2-b333-b30070533e30'>
 							<!-- 450c8f22-9a58-45da-8aee-80c5cd8b9bf8 Hoover-->
-							<!-- e7948b83-a2cd-466e-92ee-3b4af45690ad Eggy -->
+							<!-- 035bec70-883f-47a2-b333-b30070533e30 Eggy -->
 						</div>
 						<div class="col-md-9 text-center ">
 							<button class="btn btn-primary" id='getUser'>Get User</button>
@@ -48,7 +49,7 @@
 					<div class='row justify-content-center mt-4'> <!-- Mojio Claim functionality -->
 						<div class="col-md-6">
 							<div class="form-group input-group">
-								<label>Mojio IMEI:</label>
+								<label class='mr-3'>Mojio IMEI:</label>
 								<textarea class="form-control" rows="5" id="textBulkClaimImei" placeholder="457740642235963, 356624898086191, 863799352483831"></textarea>
 							</div>
 						</div>
@@ -58,19 +59,10 @@
 							</div>
 						</div>
 					</div>
-					<div class='row justify-content-center'>
-						<div class='custom-tables'>
-							<div id="mojio-User">
-							</div>
-							<div id="mojio-Mojios">
-							</div>
-							<div id="mojio-Vehicles">
-							</div>
-						</div>
-					</div>
 				</div> <!-- .mojio -->
 			</div>
-			<div class='col-md-3'>
+			<!-- CHAT APP -->
+			<div class ='col-md-4'>
 				<div class='chat-area'>
 						<ol id='history'>
 						</ol>
@@ -85,7 +77,21 @@
 						</form>
 				</div> <!-- .chat-area -->
 			</div>
+
+			
 		</div> <!--.row -->
+		<div class='row justify-content-center'>
+			<div class='col-md-12'>
+				<div class='custom-tables'>
+					<div id="mojio-User">
+					</div>
+					<div id="mojio-Mojios">
+					</div>
+					<div id="mojio-Vehicles">
+					</div>
+				</div>
+			</div>		
+		</div>
 	</div> <!-- .container -->
 
 	<!-- IMPORTS - JAVASCRIPT -->

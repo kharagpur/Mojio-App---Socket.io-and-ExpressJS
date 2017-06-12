@@ -163,6 +163,7 @@ $(document).ready(function() {
 											<th>LastContactTime</th>
 											<th style='display:none;'>Vehicle Id</th>
 											<th>Update</th>
+											<th>Remove Device</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -190,6 +191,8 @@ $(document).ready(function() {
 										<input class="form-control input-sm" type="text" value='${mojio.VehicleId}'>
 									</td>
 									<td><button class='btn btn-success update-mojio'>Update</button></td>
+									<td class='remove-mojio'><button type="button" class="btn btn-outline-danger remove-mojio-button" id="removeMojioButton">Remove</button></td>
+
 								</tr>
 								`
 							);
@@ -567,3 +570,6 @@ $( document ).ajaxError(function( event, request, settings ) {
   console.log("Error requesting page " + settings.url);
   console.log("Request: " + request.responseJSON.Message);
 });
+
+// Features:
+// Unclaim, Bulk Claim

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	//$("#error-alert").hide();
 	
-	var socket = io();
+	let socket = io();
 
 	// Submit message
 	$('#chat').on('submit', function () {
@@ -20,9 +20,9 @@ $(document).ready(function() {
 	});
 
 	// MOJIO JAVASCRIPT
-	// USER OPERATION
+	// [GET] USER
 	$('#getUser').on('click', function(){
-		var apiToken = $('#apiToken').val();
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
 			$.ajax({
 				url:'https://api.moj.io/v2/me',
@@ -84,6 +84,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// [PUT] USER ID
 	$('body').on('click', 'button.update-user', function(){
 		let id = $(this).closest("tr")
 			.find('.id')
@@ -106,7 +107,7 @@ $(document).ready(function() {
 			.find('input')
 			.val();
 		// Ajax call to save the entity
-		var apiToken = $('#apiToken').val();
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
 			$.ajax({
 				url:`https://api.moj.io/v2/users/${id}`,
@@ -139,10 +140,15 @@ $(document).ready(function() {
 		}
 	});
 
-	// MOJIO OPERATION
+	// [GET] MOJIO
+	let ajaxGetMojioInProgress = false;
 	$('#getMojios').on('click', function(){
-		var apiToken = $('#apiToken').val();
+		if (ajaxGetMojioInProgress){
+			return;
+		}
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
+			ajaxGetMojioInProgress = true;
 			$.ajax({
 				url:'https://api.moj.io/v2/Mojios',
 				headers:{
@@ -198,20 +204,24 @@ $(document).ready(function() {
 							);
 						});
 					}
+					ajaxGetMojioInProgress = false;
 				},
 				error: function(xhr, text, err){
 					console.log(xhr.responseJSON.Message);
 					console.log(xhr.status);
 					console.log(xhr.statusCode);
 					errorAlert('Oh snap!', 'Mojio API Token is not valid.');
+					ajaxGetMojioInProgress = false;
 				}
 			});
+
 		}
 		else{
 			warningAlert('Darn!', 'I need an API token to begin with');
 		}
 	});
 
+	// [PUT] MOJIO ID
 	$('body').on('click', 'button.update-mojio', function(){
 		let id = $(this).closest("tr")
 			.find(".id")
@@ -234,7 +244,7 @@ $(document).ready(function() {
 			.find('input')
 			.val();
 		// Ajax call to save the entity
-		var apiToken = $('#apiToken').val();
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
 			$.ajax({
 				url:`https://api.moj.io/v2/mojios/${id}`,
@@ -265,9 +275,61 @@ $(document).ready(function() {
 		}
 	});
 
-	// VEHICLE OPERATION
+	// [DELETE] MOJIO ID
+	$('body').on('click', 'button.remove-mojio-button', function(){		
+		let id = $(this).closest("tr").find(".id").find('input').val();
+		let imei = $(this).closest("tr").find(".imei").find('input').val();
+
+		bootbox.confirm({
+			title: "Unclaiming a Mojio!",
+			message: `Are you sure you want to unclaim Mojio: ${imei}`,
+			buttons: {
+				cancel: {
+					label: '<i class="fa fa-times"></i> Cancel'
+				},
+				confirm: {
+					label: '<i class="fa fa-check"></i> Confirm'
+				}
+				},
+				callback: function (result) {
+					console.log('This was logged in the callback: ' + result);
+					if (result){
+						// Ajax call to save the entity
+						let apiToken = $('#apiToken').val();
+						if (apiToken){
+							$.ajax({
+								url:`https://api.moj.io//v2/mojios/${id}`,
+								headers:{
+									'Authorization': `Bearer ${apiToken}`,
+									'Content-Type': 'application/json'
+								},
+								method:'DELETE',
+								success: function(data){
+									successAlert('Success', 'Mojio has been deleted!');
+									// TODO: DELETE THAT ROW
+									// TODO: TEST THIS FUNCTIONALITY
+								},
+								error: function(xhr, text, err){
+									console.log(xhr.responseJSON.Message);
+									console.log(xhr.status);
+									console.log(xhr.statusCode);
+									errorAlert('Error', 'Deleting mojio failed');
+									// TODO: HANDEL ERROR CASES AND PROVIDE FEEDBACK
+								}
+							});
+						}
+						else{
+							warningAlert('Darn!', 'I need an API token to begin with');
+						}
+					}
+				}
+			}
+		});
+	});
+
+	// [GET] VEHICLES
 	$('#getVehicles').on('click', function(){
-		var apiToken = $('#apiToken').val();
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
 			$.ajax({
 				url:'https://api.moj.io/v2/Vehicles',
@@ -384,6 +446,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// [PUT] VEHICILE ID
 	$('body').on('click', 'button.update-vehicle', function(){
 		let id = $(this).closest("tr")
 			.find(".id")
@@ -419,7 +482,7 @@ $(document).ready(function() {
 			.find('input')
 			.val();
 		// Ajax call to save the entity
-		var apiToken = $('#apiToken').val();
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
 			$.ajax({
 				url:`https://api.moj.io/v2/vehicles/${id}`,
@@ -451,13 +514,14 @@ $(document).ready(function() {
 		}
 	});
 
+	// [DELETE] VEHICLE ID
 	$('body').on('click', 'button.delete-vehicle', function(){
 		let id = $(this).closest("tr")
 			.find(".id")
 			.find('input')
 			.val();
 		// Ajax call to save the entity
-		var apiToken = $('#apiToken').val();
+		let apiToken = $('#apiToken').val();
 		if (apiToken){
 			$.ajax({
 				url:`https://api.moj.io/v2/vehicles/${id}`,
@@ -468,12 +532,15 @@ $(document).ready(function() {
 				method:'DELETE',
 				success: function(data){
 					successAlert('Success', 'Vehicles has been deleted!');
+					// TODO: DELETE THAT ROW
+					// TODO: TEST THIS FUNCTIONALITY
 				},
 				error: function(xhr, text, err){
 					console.log(xhr.responseJSON.Message);
 					console.log(xhr.status);
 					console.log(xhr.statusCode);
 					errorAlert('Error', 'Deleting vehicle failed');
+					// TODO: HANDEL ERROR CASES AND PROVIDE FEEDBACK
 				}
 			});
 		}
@@ -522,9 +589,15 @@ $(document).ready(function() {
 	});
 
 	$('#clear').on('click', function(){
-		$('#userTable').remove();
-		$('#mojioTable').remove();
-		$('#vehicleTable').remove();
+		$('*[id*=userTable]:visible').each(function() {
+		    $(this).remove();
+		});
+		$('*[id*=mojioTable]:visible').each(function() {
+		    $(this).remove();
+		});
+		$('*[id*=vehicleTable]:visible').each(function() {
+		    $(this).remove();
+		});
 	});
 
 	// Custom Functions

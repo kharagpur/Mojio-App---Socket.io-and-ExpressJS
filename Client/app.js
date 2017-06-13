@@ -323,7 +323,6 @@ $(document).ready(function() {
 						}
 					}
 				}
-			}
 		});
 	});
 
@@ -597,6 +596,49 @@ $(document).ready(function() {
 		});
 		$('*[id*=vehicleTable]:visible').each(function() {
 		    $(this).remove();
+		});
+	});
+
+	$('#btnClaimMojio').on('click', function(){
+		let imeiString = $('#textBulkClaimImei').val();
+		let imeiArray = imeiString.split(',');
+		imeiArray.forEach(function(imei){
+			let imeiDirty = imei.replace(/["']/g, '');
+			let imeiClean = imeiDirty.trim();
+			console.log(imeiClean)
+			// ajax call to claim all the mojios
+			// Ajax call to save the entity
+			let apiToken = $('#apiToken').val();
+			if (apiToken){
+				$.ajax({
+					url:`https://api.moj.io//v2/mojios/${id}`,
+					headers:{
+						'Authorization': `Bearer ${apiToken}`,
+						'Content-Type': 'application/json'
+					},
+					method:'POST',
+					data:
+					`
+						{
+							IMEI: '${imeiClean}'
+						}
+					`,
+					success: function(data){
+						successAlert('Success', `${imeiClean} Mojio has been claimed!`);
+						// TODO: TEST THIS FUNCTIONALITY
+					},
+					error: function(xhr, text, err){
+						console.log(xhr.responseJSON.Message);
+						console.log(xhr.status);
+						console.log(xhr.statusCode);
+						errorAlert('Error', 'Deleting mojio failed');
+						// TODO: HANDEL ERROR CASES AND PROVIDE FEEDBACK
+					}
+				});
+			}
+			else{
+				warningAlert('Darn!', 'I need an API token to begin with');
+			}
 		});
 	});
 

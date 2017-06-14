@@ -399,6 +399,7 @@ $(document).ready(function() {
 						console.log(xhr.status);
 						console.log(xhr.statusCode);
 						errorAlert('Error', 'Deleting mojio failed');
+						console.log(`Failed to unclaim ${imei}`);
 						// TODO: HANDEL ERROR CASES AND PROVIDE FEEDBACK
 					}
 				});
@@ -449,7 +450,7 @@ $(document).ready(function() {
 	let createUserTable = function(data){
 		$('#mojio-User').append(
 			`
-			<table class='table table-striped table-hover table-responsive' id='userTable' style="width:100%">
+			<table class='table table-striped table-hover table-responsive' id='userTable' style="width:100%; margin=auto">
 				<thead class="thead-default">
 					<tr>
 						<th style='display:none;'>Id</th>

@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class='container-fluid'>
-		<div id='col-md-12 alerts'>
+		<div id='alerts'>
 			<div class="alert alert-success" style='display:none;' id="success-alert">
 				<!-- <button type="button" class="close" data-dismiss="alert">x</button> -->
 				<div id='success-message'></div>
@@ -28,14 +28,14 @@
 				<div id='error-message'></div>
 			</div>
 		</div>
-		<div class='row justify-content-center'>
-			<!-- MOJIO CONTAINER -->
-			<div class='col-md-8'>
+		<div class='row'>
+			<div class='col-xl-7 justify-content-center vertical-center'>
+				<!-- Mojio Interaction -->
 				<div class='mojio'>
 					<div class='row justify-content-center'>
 						<div class="col-md-9 form-group input-group">
-							<label for="mojioApiToken" class="form-control col-4">Mojio API Token</label>
-							<input id="apiToken" type="text" class="form-control col-8" placeholder="035bec70-883f-47a2-b333-b30070533e30" value='9fcb8ef2-047a-4995-9ba7-d823f4a278c7'>
+							<label for="mojioApiToken" class="form-control col-xl-3">Mojio API Token</label>
+							<input id="apiToken" type="text" class="form-control col-8" placeholder="035bec70-883f-47a2-b333-b30070533e30" value='47e5083c-cfe9-43a1-8056-594339390d6b'>
 							<!-- 450c8f22-9a58-45da-8aee-80c5cd8b9bf8 Hoover-->
 							<!-- 035bec70-883f-47a2-b333-b30070533e30 Eggy -->
 						</div>
@@ -59,29 +59,67 @@
 							</div>
 						</div>
 					</div>
-				</div> <!-- .mojio -->
-			</div>
-			<!-- CHAT APP -->
-			<div class ='col-md-4'>
-				<div class='chat-area'>
-						<ol id='history'>
-						</ol>
-						<form id='chat'>
-							<div class="input-group">
-								<input id="initials" type="text" class="form-control text-uppercase" placeholder="Int" maxlength="2">
-								<input id="message" type="text" class="form-control" placeholder="Message">
-								<span class="input-group-btn">
-									<button class="btn btn-outline-primary" id='chat-btn'>Send</button>
-								</span>
-							</div>
-						</form>
-				</div> <!-- .chat-area -->
-			</div>
+				</div> <!-- End of Mojio Interaction -->
+			</div> <!-- .col-xl-7 -->
 
-			
-		</div> <!--.row -->
+			<div class='col-xl-5 justify-content-right'>
+				<!-- Instructions -->
+				<div id='Instructions'>
+					<h1 class="display-4">The how to... (on Chrome)</h1>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">1.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/1.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">Navigate to <a href="https://my.moj.io" target="_blank">https://my.moj.io</a></dt>
+					</dl>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">2.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/2.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">"right" click anywhere on the screen, and then select "Inspect".</dt>
+					</dl>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">3.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/3.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">Click on the Network tab</dt>
+					</dl>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">4.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/4.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">(left side of the screen) click any mojio call</dt>
+					</dl>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">5.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/5.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">Copy the highlighted text (guid)</dt>
+					</dl>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">6.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/6.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">Navigate back to this site</dt>
+					</dl>
+					<dl class="row">
+						<dd class="col-sm-auto col-xl-auto px-2">7.</dd>
+						<dd class="col-sm-auto col-xl-auto px-2"><img src="/img/7.png"></dd>
+						<dt class="col-sm-auto col-xl-auto px-2">Paste the token in the box to get going...</dt>
+					</dl>
+				</div> <!-- End of Instructions -->	
+				<!-- Chat Area -->
+				<!-- <div class='chat-area col-xl-5'>
+					<ol id='history'>
+					</ol>
+					<form id='chat'>
+						<div class="input-group">
+							<input id="initials" type="text" class="form-control text-uppercase" placeholder="Int" maxlength="2">
+							<input id="message" type="text" class="form-control" placeholder="Message">
+							<span class="input-group-btn">
+								<button class="btn btn-outline-primary" id='chat-btn'>Send</button>
+							</span>
+						</div>
+					</form>
+				</div> --> <!-- End of Chat Area -->
+			</div> <!-- .col-xl-5 -->
+		</div> <!-- .row -->
 		<div class='row'>
-			<div class='col-md-12 col-sm-8 col-xs-8' align="center">
+			<div class='col align-self-center'>
 				<div class='custom-tables'>
 					<div id="mojio-User">
 					</div>
@@ -91,7 +129,7 @@
 					</div>
 				</div>
 			</div>		
-		</div>
+		</div> <!-- .row -->
 	</div> <!-- .container -->
 
 	<!-- IMPORTS - JAVASCRIPT -->

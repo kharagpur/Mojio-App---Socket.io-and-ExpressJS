@@ -366,7 +366,7 @@ $(document).ready(function() {
 	});
 
 	$('#btnClaimMojio').on('click', function(){
-		let id = $(this).closest("tr").find(".id").find('input').val();
+		//let id = $(this).closest("tr").find(".id").find('input').val();
 		let imeiString = $('#textBulkClaimImei').val();
 		let imeiArray = imeiString.split(',');
 		imeiArray.forEach(function(imei){
@@ -378,18 +378,16 @@ $(document).ready(function() {
 			let apiToken = $('#apiToken').val();
 			if (apiToken){
 				$.ajax({
-					url:`https://api.moj.io//v2/mojios/${id}`,
+					url:`https://api.moj.io/v2/mojios/`,
 					headers:{
 						'Authorization': `Bearer ${apiToken}`,
 						'Content-Type': 'application/json'
 					},
 					method:'POST',
 					data:
-					`
-						{
-							IMEI: '${imeiClean}'
-						}
-					`,
+					`{
+						IMEI: '${imeiClean}'
+					}`,
 					success: function(data){
 						successAlert('Success', `${imeiClean} Mojio has been claimed!`);
 						// TODO: TEST THIS FUNCTIONALITY
